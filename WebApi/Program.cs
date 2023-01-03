@@ -1,8 +1,7 @@
-using Application.Services.Abstractions;
-using Application.Services.Implementations;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Infraestructure.Context;
-using Infraestructure.Repositories.Abstracions;
-using Infraestructure.Repositories.Implementacions;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +15,27 @@ builder.Services.AddSwaggerGen();
 // Agregando el context Data Base
 builder.Services.AddDbContext<ApplicationDbContext>();
 // Configuracion de la inyeccion de depencias
-builder.Services.AddScoped<ITipoEmpleadoRepository, TipoEmpleadoRepository>();
-builder.Services.AddScoped<ITipoEmpleadoService, TipoEmpleadoService>();
+// builder.Services.AddScoped<ITipoEmpleadoRepository, TipoEmpleadoRepository>();
+// builder.Services.AddScoped<ITipoEmpleadoService, TipoEmpleadoService>();
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(options =>
+    {
+        options.RegisterAssemblyTypes(Assembly.Load("Infraestructure"))
+        .Where(t => t.Name.EndsWith("Repository"))
+        .AsImplementedInterfaces()
+        .InstancePerLifetimeScope();
+
+        options.RegisterAssemblyTypes(Assembly.Load("Application"))
+       .Where(t => t.Name.EndsWith("Service"))
+       .AsImplementedInterfaces()
+       .InstancePerLifetimeScope();
+    });
+
+builder.Services.AddAutoMapper(Assembly.Load("Application"));
 
 var app = builder.Build();
 
