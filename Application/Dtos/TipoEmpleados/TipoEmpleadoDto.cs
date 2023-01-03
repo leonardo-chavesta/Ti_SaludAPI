@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Application.Dtos.TipoEmpleados
 {
-    public class TipoEmpleado
+    public class TipoEmpleadoDto
     {
         public int Id { get; set; }
         public int Codigo { get; set; }
         public string Nombre { get; set; }
-        public int Estado { get; set; } = 1;
+        public int Estado { get; set; }
     }
 }

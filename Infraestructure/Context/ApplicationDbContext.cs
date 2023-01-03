@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain;
+using Infraestructure.ModelMaps;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,14 @@ namespace Infraestructure.Context
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DBConnection"));
+        }
+
+        public DbSet<TipoEmpleado> TipoEmpleados { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new TipoEmpleadoMaps());
         }
     }
 }
