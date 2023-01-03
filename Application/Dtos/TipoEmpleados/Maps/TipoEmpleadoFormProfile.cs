@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.TipoEmpleados.Maps
 {
-    public class TipoEmpleadoProfile : Profile
+    public class TipoEmpleadoFormProfile : Profile
     {
-        public TipoEmpleadoProfile()
+        public TipoEmpleadoFormProfile()
         {
-            CreateMap<TipoEmpleado, TipoEmpleadoDto>();
-            
+            CreateMap<TipoEmpleado, TipoEmpleadoFormDto>().ReverseMap();
         }
     }
 }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos.TipoEmpleados
 {
-    public class TipoEmpleadoDto : TipoEmpleadoFormDto
+    public class TipoEmpleadoFormDto
     {
-        public int Id { get; set; }
         public int Codigo { get; set; }
         public string Nombre { get; set; }
-        public int Estado { get; set; }
     }
 }
