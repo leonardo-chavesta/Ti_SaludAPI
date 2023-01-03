@@ -11,7 +11,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls= true;
+    options.LowercaseQueryStrings= true;
+});
 // Agregando el context Data Base
 builder.Services.AddDbContext<ApplicationDbContext>();
 // Configuracion de la inyeccion de depencias
