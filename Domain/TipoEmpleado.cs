@@ -12,5 +12,7 @@ namespace Domain
         public int Codigo { get; set; }
         public string Nombre { get; set; }
         public int Estado { get; set; } = 1;
+
+        public virtual IList<Empleado> Empleados { get; set;}
     }
 }
