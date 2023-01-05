@@ -7,7 +7,7 @@ namespace Application.Dtos.Empleados.Maps
     {
         public EmpleadoFormProfile() 
         {
-            CreateMap<Empleado, EmpleadoFormProfile>().ReverseMap();
+            CreateMap<Empleado, EmpleadoFormDto>().ReverseMap();
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Application.Dtos.TipoEmpleados.Maps
         public TipoEmpleadoProfile()
         {
             CreateMap<TipoEmpleado, TipoEmpleadoDto>();
-            
         }
     }
 }
