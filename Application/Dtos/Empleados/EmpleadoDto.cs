@@ -13,6 +13,6 @@ namespace Application.Dtos.Empleados
         public int TipoEmpleadoId { get; set; }
         public int Estado { get; set; }
 
-        public virtual TipoEmpleadoDto TipoEmpleado { get; set; }
+        public TipoEmpleadoDto TipoEmpleado { get; set; }
     }
 }

@@ -14,5 +14,8 @@ namespace Infraestructure.Repositories.Abstracions
         Task<Empleado?> EditEmpleado(int id, Empleado entity);
         Task<Empleado?> ActivarODesactivar(int id);
         Task<Empleado?> Buscar(int id);
+
+
+        Task<IList<Empleado>> ListarAsync(string nombre,string apellido,string tipoEmpleado);
     }
 }

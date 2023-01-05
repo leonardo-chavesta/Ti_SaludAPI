@@ -2,11 +2,6 @@
 using Infraestructure.Context;
 using Infraestructure.Repositories.Abstracions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infraestructure.Repositories.Implementacions
 {
@@ -19,9 +14,18 @@ namespace Infraestructure.Repositories.Implementacions
             _context = context;
         }
 
-        public Task<Empleado?> ActivarODesactivar(int id)
+        public async Task<Empleado?> ActivarODesactivar(int id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Empleados.FindAsync(id);
+            if (model != null)
+            {
+                model.Estado = (model.Estado == 0 ) ? 1: 0;
+
+                _context.Empleados.Update(model);
+                await _context.SaveChangesAsync();
+            }
+
+            return model;
         }
 
         public async Task<Empleado?> Buscar(int id)
@@ -56,9 +60,30 @@ namespace Infraestructure.Repositories.Implementacions
 
         public async Task<IList<Empleado>> ListaEmpleado()
         {
-            var response = await _context.Empleados.OrderByDescending(e => e.Id).ToListAsync();
+            var response = await _context.Empleados.Include(e => e.TipoEmpleado).OrderByDescending(e => e.Id).ToListAsync();
 
             return response;   
+        }
+
+
+        public async Task<IList<Empleado>> ListarAsync(string nombre, string apellido, string tipoEmpleado)
+        {
+            
+            var response = await _context.Empleados
+                .Include(e => e.TipoEmpleado)
+                .Where(e => (e.Estado == 1 ) &&
+                            (string.IsNullOrWhiteSpace(tipoEmpleado) || e.TipoEmpleado.Nombre.ToUpper().Contains(tipoEmpleado.ToUpper())) &&
+                            (string.IsNullOrWhiteSpace(nombre) || e.Nombre.ToUpper().Contains(nombre.ToUpper())) &&
+                            (string.IsNullOrWhiteSpace(apellido) || e.Apellido.ToUpper().Contains(apellido.ToUpper()))
+                    )
+                    .ToListAsync();
+
+            if (response == null)
+            {
+                return null;
+            }
+
+            return response;
         }
     }
 }

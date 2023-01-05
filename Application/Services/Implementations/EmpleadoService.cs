@@ -3,11 +3,7 @@ using Application.Services.Abstractions;
 using AutoMapper;
 using Domain;
 using Infraestructure.Repositories.Abstracions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Utils;
 
 namespace Application.Services.Implementations
 {
@@ -57,6 +53,13 @@ namespace Application.Services.Implementations
         {
             var response = await _empleadoRepository.ListaEmpleado();
             return _mapper.Map<IList<EmpleadoDto>>(response);
+        }
+
+
+        public async Task<IList<EmpleadoDto>> ListarAsync(PeticionFiltroDto<EmpleadoPeticionDto> peticion)
+        {
+            var entidad = await _empleadoRepository.ListarAsync(peticion.Filtro.Nombre,peticion.Filtro.Apellido ,peticion.Filtro.TipoEmpleado);
+            return _mapper.Map<IList<EmpleadoDto>>(entidad);
         }
     }
 }

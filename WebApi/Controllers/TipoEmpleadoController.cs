@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TipoEmpleadoDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<Results<NotFound, Ok<TipoEmpleadoDto>>>Get (int id)
+        public async Task<Results<NotFound, Ok<TipoEmpleadoDto>>>Get(int id)
         {
             var response = await _tipoEmpleadoService.Buscar(id);
             if ( response == null) return TypedResults.NotFound();

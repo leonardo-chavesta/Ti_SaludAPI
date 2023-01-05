@@ -9,6 +9,7 @@ namespace Application.Services.Abstractions
         Task<TipoEmpleadoDto?> EditTipoEmpleado(int id, TipoEmpleadoFormDto entity);
         Task<TipoEmpleadoDto?> ActivarODesactivar(int id);
         Task<TipoEmpleadoDto?> Buscar(int id);
+
         Task<IList<TipoEmpleadoDto>> ListaEmpleado();
     }
 }
