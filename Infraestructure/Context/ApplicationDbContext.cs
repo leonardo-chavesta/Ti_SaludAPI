@@ -26,12 +26,14 @@ namespace Infraestructure.Context
 
         public DbSet<TipoEmpleado> TipoEmpleados { get; set; }
         public DbSet<Empleado> Empleados { get; set; }
+        public DbSet<Servicio> Servicios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new TipoEmpleadoMaps());
             modelBuilder.ApplyConfiguration(new EmpleadoMaps());
+            modelBuilder.ApplyConfiguration(new ServicioMaps());
         }
     }
 }
